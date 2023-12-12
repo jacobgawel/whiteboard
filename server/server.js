@@ -43,6 +43,7 @@ app.get('/get-all-objects', async (req, res) => {
     }
 });
 
+
 // Socket.IO event handling
 io.on('connection', async (socket) => {
     console.log('User Connected: ', socket.id);
@@ -51,6 +52,24 @@ io.on('connection', async (socket) => {
         socket.emit('all-objects', allObjects);
     } catch (error) {
         console.error('Error emitting existing objects:', error);
+    }
+
+    // Create a constant to allow for event detection
+    // const changeStream = CanvasDB.watch();
+    // changeStream.on('change', (change) => {
+    //    if (change.operationType === 'insert') {
+    //        console.log('There has been a change')
+    //    }
+    //});
+
+    try {
+        setInterval(async () => {
+            const objects = await IntervalFetchFromDB();
+            console.log('FETCHING ....')
+            socket.emit('all-objects', objects);
+        }, 5000);
+    }catch (error){
+        console.log('this' + error)
     }
 
     /// Listen for 'last-object' event from clients
@@ -96,8 +115,28 @@ io.on('connection', async (socket) => {
     });
 });
 
+async function IntervalFetchFromDB() {
+    console.log('Fetching new data ...')
+    try {
+        const allObjects = await CanvasDB.find({});
+        return allObjects;
+    } catch (error) {
+        console.error('Error emitting existing objects:', error);
+    }
+    
+}
+
 // Set up server to listen on a specified port
 var server_port = process.env.YOUR_PORT || process.env.PORT || 7789;
 http.listen(server_port, () => {
     console.log('Server started on port: ' + server_port);
+    
+});
+
+process.on('SIGINT', () => {
+    changeStream.close();
+    mongoose.connection.close(() => {
+        console.log('MongoDB connection closed');
+        process.exit(0);
+    });
 });
