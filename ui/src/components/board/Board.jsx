@@ -136,7 +136,8 @@ class Board extends React.Component {
     /* Called on initial component mount to setup */
     componentDidMount() {
         console.log('MOUNTING BOARD')
-        this.socket = io.connect(process.env.SERVER_URL);
+        console.log(process.env.REACT_APP_SERVER_URL)
+        this.socket = io.connect(process.env.REACT_APP_SERVER_URL);
         console.log("MOUNTED")
         this.setupEventListeners();
         this.setupCanvas();

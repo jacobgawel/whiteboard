@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: whiteboard-app
+  name: frontend-serv
   labels:
     app: jakubgawel1310-frontend
 spec:
@@ -20,13 +20,13 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: SERVER_URL
+        - name: REACT_APP_SERVER_URL
           value: "http://backend-service:7789"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: whiteboard-service
+  name: frontend-service
 spec:
   selector:
     app: jakubgawel1310-frontend

@@ -23,7 +23,9 @@ const CanvasDB = mongoose.model('CanvasObjects', new mongoose.Schema({
     properties: mongoose.Schema.Types.Mixed,
 }));
 
+require('dotenv').config();
 // Attempt to Connect to MongoDB
+console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log('Connected to MongoDB');
 }).catch((error) => {
