@@ -10,6 +10,8 @@ var io = require('socket.io')(http, {
     pingInterval: 25000, // 25 seconds - Configuring Socket.IO options
 });
 
+let objectCount = 0;
+
 var cors = require('cors');
 
 // Allow requests from any origin
@@ -58,18 +60,26 @@ io.on('connection', async (socket) => {
     // const changeStream = CanvasDB.watch();
     // changeStream.on('change', (change) => {
     //    if (change.operationType === 'insert') {
-    //        console.log('There has been a change')
+    //        console.log('There has been a change');
     //    }
     //});
 
     try {
         setInterval(async () => {
-            const objects = await IntervalFetchFromDB();
-            console.log('FETCHING ....')
-            socket.emit('all-objects', objects);
+            const [objects, count] = await IntervalFetchFromDB();
+            console.log('Count of objects:', count);
+            console.log('Constant Count:', objectCount);
+            if (objectCount > count) {
+                socket.emit('clear-canvas');
+                socket.emit('all-objects', objects);
+                objectCount = count;
+            } else {
+                socket.emit('all-objects', objects);
+                objectCount = count;
+            }
         }, 5000);
-    }catch (error){
-        console.log('this' + error)
+    } catch (error) {
+        console.log('Error in setInterval:', error);
     }
 
     /// Listen for 'last-object' event from clients
@@ -116,14 +126,15 @@ io.on('connection', async (socket) => {
 });
 
 async function IntervalFetchFromDB() {
-    console.log('Fetching new data ...')
+    console.log('Fetching new data ...');
     try {
-        const allObjects = await CanvasDB.find({});
-        return allObjects;
+        const allObjects = await CanvasDB.find({}); // Wait for the promise to resolve
+        const count = await CanvasDB.countDocuments({}); // Wait for the promise to resolve
+        return [allObjects, count];
     } catch (error) {
         console.error('Error emitting existing objects:', error);
+        throw [null, null];
     }
-    
 }
 
 // Set up server to listen on a specified port
