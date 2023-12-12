@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: whiteboard-app
+  labels:
+    app: jakubgawel1310-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jakubgawel1310-frontend
+  template:
+    metadata:
+      labels:
+        app: jakubgawel1310-frontend
+    spec:
+      containers:
+      - name: whiteboard
+        image: jakubgawel1310/frontend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: SERVER_URL
+          value: "http://backend-service:7789"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: whiteboard-service
+spec:
+  selector:
+    app: jakubgawel1310-frontend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

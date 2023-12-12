@@ -1,0 +1,100 @@
+/* style.css */
+.container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgb(29, 215, 218), rgb(22, 221, 22));
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .top-container {
+    display: flex;
+    height: 8%;
+    min-height: 60px;
+    max-height: 80px;
+    justify-content: center;
+  }
+  
+  .text-above-board {
+    text-align: center;
+    color: white;
+    font-size: 35px;
+    margin: 1%; /* Add this to remove margin */
+  }
+  
+  .content {
+    display: flex;
+    height: 85%;
+    width: 100%;
+  }
+  
+  .tools-section {
+    text-align: left;
+    width: 10%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+  }
+  
+  .drawing-mode-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+  
+  .drawing-mode-buttons button {
+    width: 40%;
+    padding: 5%;
+    margin-top: 10%;
+    min-width: 50px;
+  }
+
+  .drawing-mode-buttons img {
+    width: 100%;
+    height: 100%; 
+    object-fit: contain; 
+  }
+
+  .drawing-mode-buttons button:hover, button.selected{
+    background-color: rgb(192, 192, 192);
+  }
+  
+  .color-picker-container {
+    text-align: center;
+    color: white;
+    margin-bottom: 5%;
+    height: 8%;
+  }
+
+  .color-picker-container input[type="color"] {
+    width: 40%; /* Adjust the width as needed */
+    min-width: 50px;
+    height: 100%; /* Adjust the height as needed */
+  }
+  
+  
+  .brushsize-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: center;
+  }
+  
+  .brushsize-container select {
+    width: 100%;
+    max-width: 50px;
+  }
+  
+  .board-container {
+    flex: 1;
+    height: 100%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    margin-top: 1%;
+    background: rgb(227, 248, 252);
+    border: 2px solid black;
+  }
+  
