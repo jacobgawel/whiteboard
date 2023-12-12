@@ -59,16 +59,16 @@ const Container = () => {
               <img src="clearIcon.png" alt="clear" /> 
             </button>
             <button className={drawingMode === 'freehand' ? 'selected' : ''} onClick={() => selectDrawingMode('freehand')}>
-              <img src="PencilIcon.png" alt="freehand" /> 
+              <img src="pencilIcon.png" alt="freehand" /> 
             </button>
             <button className={drawingMode === 'line' ? 'selected' : ''} onClick={() => selectDrawingMode('line')}>
-              <img src="Lineicon.png" alt="Line" /> 
+              <img src="lineIcon.png" alt="Line" /> 
             </button>
             <button className={drawingMode === 'rectangle' ? 'selected' : ''} onClick={() => selectDrawingMode('rectangle')}>
               <img src="rectangleIcon.png" alt="rectangle" /> 
             </button>
             <button className={drawingMode === 'circle' ? 'selected' : ''} onClick={() => selectDrawingMode('circle')}>
-              <img src="CircleIcon.png" alt="circle" /> 
+              <img src="circleIcon.png" alt="circle" /> 
             </button>
             <button className={drawingMode === 'text' ? 'selected' : ''} onClick={() => selectDrawingMode('text')}>
               <img src="textIcon.png" alt="text" /> 

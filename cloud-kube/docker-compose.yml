@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  whiteboard-deployment:
+    image: jakubgawel1310/frontend
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_BACKEND_URL=http://whiteboard-backend:7789
+
+  whiteboard-backend:
+    image: jakubgawel1310/backend
+    ports:
+      - 7789:7789
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/whiteboard
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017

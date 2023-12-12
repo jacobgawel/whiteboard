@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: whiteboard-backend
+  name: whiteboard-backend
+spec:
+  ports:
+    - name: "7789"
+      port: 7789
+      targetPort: 7789
+  selector:
+    io.kompose.service: whiteboard-backend
+status:
+  loadBalancer: {}

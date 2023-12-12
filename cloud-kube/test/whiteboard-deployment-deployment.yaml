@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: whiteboard-deployment
+  name: whiteboard-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: whiteboard-deployment
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: whiteboard-deployment
+    spec:
+      containers:
+        - env:
+            - name: REACT_APP_SERVER_URL
+              value: http://whiteboard-backend:7789
+          image: jakubgawel1310/frontend
+          name: whiteboard-deployment
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+status: {}
