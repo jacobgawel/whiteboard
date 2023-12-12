@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: backend-serv-2
+  labels:
+    app: jakubgawel1310-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jakubgawel1310-backend
+  template:
+    metadata:
+      labels:
+        app: jakubgawel1310-backend
+    spec:
+      containers:
+      - name: backend
+        image: jakubgawel1310/backend
+        ports:
+        - containerPort: 7789
+        env:
+        - name: MONGO_URL
+          value: "mongodb://mongo-service:27017"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-2
+spec:
+  selector:
+    app: jakubgawel1310-backend
+  ports:
+    - protocol: TCP
+      port: 7789
+      targetPort: 7789
