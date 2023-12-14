@@ -19,6 +19,10 @@ spec:
         image: mongo:5.0
         ports:
         - containerPort: 27017
+      volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+
 ---
 apiVersion: v1
 kind: Service
